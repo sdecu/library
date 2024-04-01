@@ -25,29 +25,6 @@ function addBookToLibrary() {
     const newBook = new Book(author, title, pages, readStatus);
     myLibrary.push(newBook);
     console.log(myLibrary);
-
-    
-//     let myArray = myLibrary[i];
-//     console.log(myArray.author);
-//     console.log(i);
-//     const div = document.createElement('div');
-//     const p = document.createElement('p');
-
-//     div.setAttribute('id', 'card');
-//     container.append(div);
-//     div.append(p);
-//     p.append(`Author:${myArray.author}<br>Title:${myArray.title}<br> Pagecount:${myArray.pages}<br>${checkRead}`);
-
-// //     for (Book in myLibrary)    {
-// //       
-// //       const author = document.createElement('p');
-// //       author.append(myLibrary.author);
-// //       div.append(author);
-// //       console.log(`${Book}: ${myLibrary[Book]}`);
-// // }
-// function checkRead  () {
-//   return myArray.read ? 'read' : 'not read yet';
-// }
 displayBooks();
 ;
 }
@@ -72,7 +49,7 @@ function displayBooks() {
     headerRow.appendChild(pagesHeader);
 
     const readStatusHeader = document.createElement('th');
-    readStatusHeader.textContent = 'Read Status';
+    readStatusHeader.textContent = 'Read Status (click to toggle)';
     headerRow.appendChild(readStatusHeader);
 
     const remove = document.createElement('th');
@@ -105,6 +82,8 @@ function displayBooks() {
   const readStatusCell = document.createElement('td');
   readStatusCell.textContent = myLibrary[myLibrary.length - 1].read ? 'Read' : 'Not Read';
   readStatusCell.dataset.index = myLibrary.length - 1;
+  readStatusCell.id = `ifRead${myLibrary.length - 1}`;
+  readStatusCell.addEventListener('click', toggleReadStatus)
   newRow.appendChild(readStatusCell);
 
   const removeCell = document.createElement('button');
@@ -119,7 +98,7 @@ function displayBooks() {
 }
 
 function removeItem () {
-  num = this.dataset.index
+  num = this.dataset.index;
   const element = document.querySelectorAll(`[data-index="${num}"]`);
   let array = Array.from(element);
   console.log(array);
@@ -128,3 +107,12 @@ function removeItem () {
   });
 }
 
+function toggleReadStatus ()  {
+  x = this.id;
+  const element = document.querySelector(`#${x}`);
+  if(element.textContent == 'Read') {
+    return element.textContent = 'Not Read';
+  } else if  (element.textContent == 'Not Read')  {
+    return element.textContent = 'Read'
+  };
+}
