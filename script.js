@@ -119,7 +119,12 @@ function displayBooks() {
 }
 
 function removeItem () {
-  const element = document.querySelectorAll(`[data-index="${myLibrary.length - 1}"]`);
-  console.log(element);
+  num = this.dataset.index
+  const element = document.querySelectorAll(`[data-index="${num}"]`);
+  let array = Array.from(element);
+  console.log(array);
+  array.forEach(element => {
+    element.remove();
+  });
 }
 
