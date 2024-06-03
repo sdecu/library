@@ -5,7 +5,10 @@ modal.showModal();
 });
 
 const button = document.querySelector('button');
-button.addEventListener('click', addBookToLibrary);
+button.addEventListener('click', (event)  =>  {
+  event.preventDefault();
+  addBookToLibrary();
+});
 
 const myLibrary = [];
 
@@ -17,16 +20,29 @@ function Book(author, title, pages, read) {
 }
 
 function addBookToLibrary() {
-  // do stuff here 
-    const author = document.querySelector('#author').value;
-    const title = document.querySelector('#title').value;
-    const pages = document.querySelector('#pages').value;
+    const author = document.querySelector('#author');
+    const title = document.querySelector('#title');
+    const pages = document.querySelector('#pages');
     const readStatus = document.querySelector('input[name="readStatus"]:checked').value === 'true';
-    const newBook = new Book(author, title, pages, readStatus);
-    myLibrary.push(newBook);
-    console.log(myLibrary);
-displayBooks();
+    const newBook = new Book(author.value, title.value, pages.value, readStatus);
+
+    if (!author.value || !title.value || !pages.value) {
+      button.setCustomValidity("please fill out all fields");
+      button.reportValidity();
+    } else {
+        button.setCustomValidity("");
+        myLibrary.push(newBook);
+        displayBooks();
+        author.value = '';
+        title.value = '';
+        pages.value = '';
+        modal.close();
+    }
 ;
+}
+
+function checkFields()  {
+  docEl.author
 }
 
 function displayBooks() {
